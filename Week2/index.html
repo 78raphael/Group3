@@ -1,20 +1,20 @@
 <!-- CORE REQUIREMENTS -->
 <!-- 
-Create a new html file. Add the code necessary to make it a valid document
+Create a new html file. Add the code necessary to make it a valid document COMPLETED
   1. Add a text input and a button. Put an empty div with an ID below those.
   2. Add a script tag, write a function that will read the contents of the input, and write them to the div.
   3. Call the function when the button is pressed.
 -->
 
 
- <!-- 
+<!-- 
 Modify your HTML file:
   1. Write a new function that expects a number as an argument. It should take that number and sum all the numbers up to the number provided. (ie n=5…so it would do 1+2+3+4+5 = 15) It should return that value.
   2. When the button is pressed it should read the number from the input. Make sure it is a valid number, call the summing function you just wrote, and output the result to the div. 
 -->
 
 
- <!-- 
+<!-- 
 Create an adding machine
   1. Add an additional input to your HTML file.
   2. Add a + button.
@@ -22,8 +22,8 @@ Create an adding machine
 -->
 
 
- <!-- STRETCH GOALS -->
- <!-- 
+<!-- STRETCH GOALS -->
+<!-- 
 Function declaration
   Part of your reading this week is about Javascript Functions. In Javascript there are several ways to define a function: with a function declaration, a function expression, or an arrow function. Add some more features (subtract, multiply, etc) to your calculator. Make sure to use each of the three methods at least once in your function definitions. Discuss with your team the differences and if there is one you prefer. 
 -->
@@ -48,19 +48,29 @@ Callbacks
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<link rel="stylesheet" href="/css/main.css">
-<title>Week 2 Team Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link rel="stylesheet" href="/css/main.css"> <title>Week 2 Team Project</title>
 </head>
+
 <body>
-<div class="main-container">
-<header></header>
-<div class="container"></div>
-<footer></footer>
-</div>
-<script src="js/main.js"></script>
+  <div id="demo">
+    <p> Input a Number<p>
+        <input type="text" id="fname" name="fname"><br><br>
+        <button onclick="addNumbers();">Button</button><br>
+        <div id="result"></div><br>
+        <p> Input anotherNumber</p><br>
+
+        <div class="container"></div><br>
+        <input type="text" id="add" name="add"><br>
+        <button onclick="calculateadd();">Add +</button> <br>
+        <button onclick="calculatesub();">Minus -</button><br>
+
+  </div>
+  <script src="/Week2/js/main.js"></script>
 </body>
+
 </html>
