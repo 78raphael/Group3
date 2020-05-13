@@ -1,26 +1,49 @@
 // Core Requirements
+const reset = document.getElementById('reset');
+const cells = document.querySelectorAll('.cell');
+const divBoard = document.forms.ticTac;
+const player1 = {name: "player1", sign: "X"};
+const player2 = {name: "player2", sign: "0"};
+let player = player1;
 
-//  01
-//  Build a 3X3 board in HTML and CSS.
-//  You could do this with either a table element, or a collection of divs. Both have their advantages and disadvantages.
+const getId = (e) => {
+  let cellName = e.target;
+  document.getElementById("currentPlayer").innerHTML = player.name;
+  cellName.innerHTML = player.sign;
+  if (player == player1) player = player2;
+  else player = player1;
+}
+  // console.log(e.target);
 
-//  02
-//  Attach a touchend listener to the board.
-//  When a cell is touched it should add either an 'X or an 'O', depending on whether it is player 1 or player 2's turn.
+divBoard.addEventListener('click', getId);
+
 
 // 03
 // Add a reset button.
 // When touched the reset button should remove all of the marks from the board.
 
 
+const resetBoard = (e) =>  {
+  e.preventDefault();
+  cells.forEach((c) => {
+    c.innerHTML = '';
+  });
+}
 
+reset.addEventListener('click', resetBoard, false);
 
+{/* <input type="reset" value="Reset Form"> */}
+//<input type="button" value="Reset Form" onClick="this.form.reset()
+// document.getElementById("reset").reset();
+// formObject.reset();
 // Stretch Goals
 
 // 01
 // Borders all around the outside, incorrect
 // Onlt borders on the inside, correct
 // Hint: look into :nth-child(n), :last-child, etc for help to target specific cells to turn borders on or off.
+
+// DONE
 
 
 // 02
