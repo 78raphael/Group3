@@ -6,6 +6,8 @@ const player1 = {name: "player1", sign: "X"};
 const player2 = {name: "player2", sign: "0"};
 let player = player1;
 
+document.getElementById("currentPlayer").innerHTML = player.name;
+
 const getId = (e) => {
   let cellName = e.target;
   document.getElementById("currentPlayer").innerHTML = player.name;
@@ -25,6 +27,7 @@ divBoard.addEventListener('click', getId);
 
 const resetBoard = (e) =>  {
   e.preventDefault();
+  document.getElementById("currentPlayer").innerHTML = player1.name;
   cells.forEach((c) => {
     c.innerHTML = '';
   });
