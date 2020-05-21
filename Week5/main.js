@@ -1,15 +1,4 @@
-import Hikes from './hikes';
-
-const myHike = new Hikes();
-
-
-
-myHike.showHikeList()
-
-
-
-
-
+import Hikes from './hikes.js';
 
 //create an array of hikes
 const hikeList = [
@@ -47,10 +36,12 @@ const hikeList = [
   }
 ];
 
+const myHike = new Hikes(hikeList);
+
 const imgBasePath = "/Week5/examples/";
 //on load grab the array and insert it into the page
 window.addEventListener("load", () => {
-  hikes.showHikeList();
+  myHike.showHikeList();
 });
 
 
