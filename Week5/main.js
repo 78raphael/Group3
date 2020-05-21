@@ -38,7 +38,6 @@ const hikeList = [
 
 const myHike = new Hikes(hikeList);
 
-const imgBasePath = "/Week5/examples/";
 //on load grab the array and insert it into the page
 window.addEventListener("load", () => {
   myHike.showHikeList();
