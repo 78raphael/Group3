@@ -1,6 +1,7 @@
-// Example of using Classes and modules to organize the code needed to render our list of hikes. Not using MVC here.
+let commentArray = [];
+const listName = "newComment";
 
-//create an array of hikes
+
 const hikeList = [
   {
     name: 'Bechler Falls',
@@ -36,22 +37,39 @@ const hikeList = [
   }
 ];
 
+let hikeName = '';
+let comment = '';
+
+const newComment = {
+  name: hikeName,
+  date: new Date(),
+  content: comment
+}
+
+
 const imgBasePath = '//byui-cit.github.io/cit261/examples/';
 
 export default class Hikes {
+
   constructor(elementId) {
     this.parentElement = document.getElementById(elementId);
     // we need a back button to return back to the list. This will build it and hide it. When we need it we just need to remove the 'hidden' class
     this.backButton = this.buildBackButton();
   }
+
+
   // why is this function necessary?  hikeList is not exported, and so it cannot be seen outside of this module. I added this in case I ever need the list of hikes outside of the module. This also sets me up nicely if my data were to move. I can just change this method to the new source and everything will still work if I only access the data through this getter.
   getAllHikes() {
     return hikeList;
   }
+
+
   // For the first stretch we will need to get just one hike.
   getHikeByName(hikeName) {
     return this.getAllHikes().find(hike => hike.name === hikeName);
   }
+
+
   //show a list of hikes in the parentElement
   showHikeList() {
     this.parentElement.innerHTML = '';
@@ -61,6 +79,8 @@ export default class Hikes {
     // make sure the back button is hidden
     this.backButton.classList.add('hidden');
   }
+
+
   // show one hike with full details in the parentElement
   showOneHike(hikeName) {
     const hike = this.getHikeByName(hikeName);
@@ -68,7 +88,15 @@ export default class Hikes {
     this.parentElement.appendChild(renderOneHikeFull(hike));
     // show the back button
     this.backButton.classList.remove('hidden');
+
+    document.getElementById('submit').addEventListener('touchend', () => {
+      let newComment = document.getElementById('comment').value;
+      // this.addComment();
+      this.addComment(newComment, hikeName);
+    });
   }
+
+
   // in order to show the details of a hike ontouchend we will need to attach a listener AFTER the list of hikes has been built. The function below does that.
   addHikeListener() {
     // We need to loop through the children of our list and attach a listener to each, remember though that children is a nodeList...not an array. So in order to use something like a forEach we need to convert it to an array.
@@ -80,6 +108,8 @@ export default class Hikes {
       });
     });
   }
+
+
   buildBackButton() {
     const backButton = document.createElement('button');
     backButton.innerHTML = '&lt;- All Hikes';
@@ -90,14 +120,54 @@ export default class Hikes {
     this.parentElement.before(backButton);
     return backButton;
   }
-}
-// End of Hikes class
-// methods responsible for building HTML.  Why aren't these in the class?  They don't really need to be, and by moving them outside of the exported class, they cannot be called outside the module...they become private.
+
+
+  addComment(comment, hikeName)  {
+    newComment.name = hikeName;
+    newComment.content = comment;
+
+    console.log("newComment", newComment);
+
+    getComments(listName);
+    commentArray.push(newComment);
+
+    console.log(commentArray);
+    writeToLS(listName, commentArray);
+  }
+} // End of Hikes class
+
+
+/* **********************************
+
+      METHODS
+
+********************************** */
+
 function renderHikeList(parent, hikes) {
   hikes.forEach(hike => {
     parent.appendChild(renderOneHikeLight(hike));
   });
 }
+
+function readFromLS(key)  {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function writeToLS(key, arr) {
+  localStorage.setItem(key, JSON.stringify(arr));
+}
+
+function getComments(key) {
+  if(commentArray === null || commentArray.length == 0)  {
+    commentArray = readFromLS(key);
+    commentArray = (!commentArray) ? [] : commentArray;
+
+    return commentArray;
+  } 
+  return;
+}
+
+
 function renderOneHikeLight(hike) {
   const item = document.createElement('li');
   item.classList.add('light');
@@ -118,6 +188,8 @@ function renderOneHikeLight(hike) {
 
   return item;
 }
+
+
 function renderOneHikeFull(hike) {
   const item = document.createElement('li');
   item.innerHTML = ` 
@@ -140,7 +212,13 @@ function renderOneHikeFull(hike) {
             <h3>How to get there</h3>
             <p>${hike.directions}</p>
         </div>
-    
+        <div>
+        <form>
+            <textarea id=listName placeholder="Enter Comment Here"></textarea>
+        </div>
+        <div>
+            <button id="submit">Submit</button>
+        </div>
     `;
   return item;
 }
