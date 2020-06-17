@@ -91,7 +91,7 @@ export default class Hikes {
 
     document.getElementById('submit').addEventListener('touchend', () => {
       let newComment = document.getElementById('comment').value;
-      // this.addComment();
+
       this.addComment(newComment, hikeName);
     });
   }
@@ -214,7 +214,7 @@ function renderOneHikeFull(hike) {
         </div>
         <div>
         <form>
-            <textarea id=listName placeholder="Enter Comment Here"></textarea>
+            <textarea id="comment" placeholder="Enter Comment Here"></textarea>
         </div>
         <div>
             <button id="submit">Submit</button>
