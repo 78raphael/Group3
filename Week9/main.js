@@ -31,21 +31,15 @@ dKey.addEventListener('ended', (event) => {
 })
 
 const keys = Array.from(document.querySelectorAll('.key'));
-// setInterval
 
 
-if(keyArr[e.key] >= 100)  {
+let button = keyArr[e.key]
+
+if(button >= 100)  {
   keyArr[e.key] = 0;
 } else {
   keyArr[e.key] += 10;
 }
 
 key.style.transform = `translateY(${keyArr[e.key]}px)`
-
-
-
 }
-
-
-// Add the playing class to a button when it's key is pressed.
-// Then remove it after the appropriate length of time. 
