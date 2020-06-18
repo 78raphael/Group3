@@ -13,33 +13,31 @@ let keyArr = {
 
 
 function logKey(e) {
-let dKey =document.querySelector(`audio[data-key="${e.keyCode}"]`)
-let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
-console.log(dKey.getAttribute('src'));
-dKey.pause();
-dKey.currentTime = 0;
-dKey.play();
-console.dir(dKey.play());
+  let dKey =document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+  // console.log(dKey.getAttribute('src'));
+  dKey.pause();
+  dKey.currentTime = 0;
+  dKey.play();
+  // console.dir(dKey.play());
 
+  key.classList.add('playing');
+  // audio.play();
 
-key.classList.add('playing');
-// audio.play();
+  dKey.addEventListener('ended', (event) => {
+      // console.log('end of file')
+      key.classList.remove('playing');
+  })
 
-dKey.addEventListener('ended', (event) => {
-    // console.log('end of file')
-    key.classList.remove('playing');
-})
+  const keys = Array.from(document.querySelectorAll('.key'));
 
-const keys = Array.from(document.querySelectorAll('.key'));
+  let button = keyArr[e.key];
 
+  if(button >= 100)  {
+    keyArr[e.key] = 0;
+  } else {
+    keyArr[e.key] += 10;
+  }
 
-let button = keyArr[e.key]
-
-if(button >= 100)  {
-  keyArr[e.key] = 0;
-} else {
-  keyArr[e.key] += 10;
-}
-
-key.style.transform = `translateY(${keyArr[e.key]}px)`
+  key.style.transform = `translateY(${keyArr[e.key]}px)`
 }
