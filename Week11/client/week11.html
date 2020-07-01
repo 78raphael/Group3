@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <div id="errors" class="errors hidden"></div>
+        <div id="login">
+          <form>
+            <div>
+              <label for="username">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                placeholder="Username"
+                value="user1@email.com"
+              />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+              />
+            </div>
+            <button type="button" class="btn btn-primary center-block">
+                Login
+              </button>
+            </form>
+            <div id="token-display"></div>
+        </div>
+    </main>
+</body>
+<script src="week11.js" type="module"></script>
+<script src="auth.js" type="module"></script>
+</html>   
