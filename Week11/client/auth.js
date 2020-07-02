@@ -20,24 +20,44 @@ export default class Auth {
       const data = await makeRequest('login', 'POST', postData);
       // 2. if we get a successful response...we have a token!  Store it since we will need to send it with every request to the API.
       this.jwtToken = data.accessToken;
-      console.log(this.jwtToken);
+      // console.log(this.jwtToken);
       // let's get the user details as well and store them locally in the class
       // you can pass a query to the API by appending it on the end of the url like this: 'users?email=' + email
       this.user = await this.getCurrentUser(username.value);
       // hide the login form.
       document.getElementById('login').classList.add('hidden');
+      document.getElementById('content').classList.remove('hidden');
       // clear the password
       password.value = '';
       
       // since we have a token let's go grab some data from the API by executing the callback if one was passed in
-      if(callback) {
-        callback();
+      if(this.getPostContent) {
+        // console.log('inside if');
+        await this.getPostContent(this.jwtToken);
       }
     } catch (error) {
       // if there were any errors display them
       console.log(error);
     }
   }
+
+  async getPostContent(token) {
+    let text = '';
+    const data = await makeRequest('posts', 'GET', '', token);
+    // console.log('inside getPostContent', data, this.user['id']);
+    data.forEach(lee => {
+      // console.log(lee.userId, this.user['id']);
+      if(lee.userId == this.user['id'] || lee.userId == this.user['email']){
+        // console.log(true);
+        text = `<li>Title: ${lee.title}</li>
+        <li>Post: ${lee.content}</li>`;
+        document.getElementById('list').innerHTML += text;
+        
+      }
+    });
+  }
+
+
   // uses the email of the currently logged in user to pull up the full user details for that user from the database
   async getCurrentUser(email) {
     try {
@@ -48,7 +68,7 @@ export default class Auth {
             this.jwtToken
           );
     
-          console.log(data);
+          console.log('getCurrentUser', data[0]);
           return data[0];
         } catch (error) {
           // if there were any errors display them
@@ -87,3 +107,11 @@ export default class Auth {
 let whatever = new Auth();
 
 whatever.login();
+
+function showLogin() {
+  document.getElementById('login').classList.remove('hidden');
+}
+
+function hideLogin() {
+  document.getElementById('login').classList.add('hidden');
+}
